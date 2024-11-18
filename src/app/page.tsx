@@ -4,7 +4,10 @@ import Navbar from "./components/Navbar";
 import { Poppins } from "next/font/google";
 import { Bebas_Neue } from "next/font/google";
 import { useTheme } from "./context/Theme";
-
+import Christine from "./images/christine.jpg";
+import Percy from "./images/Percy.jpg";
+import Theodore from "./images/theodore.jpg";
+import Book from "./components/Book";
 const poppins = Poppins({
   display: "block",
   style: "normal",
@@ -17,18 +20,62 @@ const bebasNeue = Bebas_Neue({
   weight: "400",
 });
 
+import { StaticImageData } from 'next/image';
+
+interface Book {
+  image: StaticImageData;
+  title: string;
+  description?: string;
+}
+
 export default function Home() {
+  const bookList: Book[] = [
+    {
+      image: Christine,
+      title: "Christine",
+      description: "A horror novel by Stephen King",
+    },
+    {
+      image: Theodore,
+      title: "Percy Jackson: The Battle Of The Labrynth",
+      description: "A fantasy novel by Rick Riordan",
+    },
+    {
+      image: Theodore,
+      title: "Theodore Boone: The Scandal",
+      description: "A legal thriller novel by John Grisham",
+    },
+  ];
   const { theme } = useTheme();
   return (
     <div className={`min-h-screen ${theme === "dark" ? "dark" : ""}`}>
       <Navbar />
       <div className="bg-white dark:bg-black min-h-screen">
-        <div id="welcome-banner">
-          <h1 className={`text-center ${poppins.className} text-2xl dark:text-white`}>Welcome To The Medical Sciences Library</h1>
+        <div id="welcome-banner" className="p-4">
+          <h1
+            className={`text-center ${poppins.className} text-2xl dark:text-white`}
+          >
+            Welcome To The Medical Sciences Library
+          </h1>
         </div>
 
-        <section id="new-books">
-          <h1 className={`text-center ${bebasNeue.className} text-2xl dark:text-white`}>New Books</h1>
+        <section id="new-books" className="p-4">
+          <h1
+            className={`text-center ${bebasNeue.className} text-2xl dark:text-white mb-4`}
+          >
+            New Books
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {bookList.map((book: Book, index: number) => (
+              <div key={index} className="h-full">
+                <Book
+                  title={book.title}
+                  image={book.image}
+                  description={book.description}
+                />
+              </div>
+            ))}
+          </div>
         </section>
       </div>
       <Footer />

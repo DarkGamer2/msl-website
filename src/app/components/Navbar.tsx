@@ -88,7 +88,7 @@ export default function Navbar() {
             </li>
             <li className="mx-3">
               <input
-                type="text"
+                type="text" 
                 placeholder="Search..."
                 className="px-4 py-2 border border-gray-300 rounded"
               />
