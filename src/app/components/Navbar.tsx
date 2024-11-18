@@ -4,6 +4,8 @@ import Image from "next/image";
 import UWILogo from "../images/UWI_Logo.png";
 import { useState, useEffect } from "react";
 import { Inter } from "next/font/google";
+import { DarkMode } from "@mui/icons-material";
+import { useTheme} from "../context/Theme";
 const inter = Inter({
   display: "block",
   style: "normal",
@@ -13,7 +15,7 @@ const inter = Inter({
 export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [libraryStatus, setLibraryStatus] = useState("");
-
+  const { theme, toggleTheme } = useTheme();
   useEffect(() => {
     const checkLibraryStatus = () => {
       const now = new Date();
@@ -44,9 +46,9 @@ export default function Navbar() {
   }, []); // Run once on component mount
 
   return (
-    <div>
-      <nav>
-        <ul className={`flex items-center justify-between w-full ${inter.className}`}>
+    <div className={`${theme==="dark"?"dark":"light"}`}>
+      <nav className="dark:bg-black">
+        <ul className={`flex items-center justify-between w-full ${inter.className} dark:text-white`}>
           <div className="flex items-center">
             <li className="flex items-center">
               <Image src={UWILogo} alt="UWI Logo" width={50} height={50} />
@@ -92,6 +94,13 @@ export default function Navbar() {
               />
             </li>
           </div>
+          <div className="flex items-center">
+            <li className="mx-3">
+              <button onClick={toggleTheme}>
+                <DarkMode />
+              </button>
+            </li>
+            </div>
           <li className="mx-3 text-sm text-gray-600">
             {libraryStatus}
           </li>
