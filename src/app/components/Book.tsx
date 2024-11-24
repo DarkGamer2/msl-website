@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Bebas_Neue, Lobster } from 'next/font/google';
 import { StaticImageData } from 'next/image';
+import Link from 'next/link';
 
 const lobster = Lobster({
   display: "block",
@@ -18,6 +19,7 @@ interface BookProps {
   image: StaticImageData;
   title: string;
   description?: string;
+  id?: number;
 }
 
 export default function Book(props: BookProps) {
@@ -32,6 +34,11 @@ export default function Book(props: BookProps) {
             <button className={`${lobster.className} bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50`}>
               Borrow
             </button>
+          </div>
+          <div className="text-center mt-2 text-white">
+            <Link href={`/books/${props.id}`}>
+             <button className={`${lobster.className} bg-blue-500 py-1 px-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}> Details</button>
+            </Link>
           </div>
         </div>
       </div>

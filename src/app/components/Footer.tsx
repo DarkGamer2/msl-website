@@ -20,7 +20,7 @@ export default function Footer() {
   const { theme } = useTheme();
   return (
     <div className={`${theme === "dark" ? "dark" : "light"}`}>
-<footer className={`bg-white p-4 w-full fixed bottom-0 dark:bg-black `}>
+<footer className={`bg-white p-4 w-full bottom-0 dark:bg-black `}>
       <div className="container mx-auto text-center">
         <div className="flex flex-col md:flex-row md:justify-between">
           <div>
