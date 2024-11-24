@@ -2,10 +2,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import UWILogo from "../images/UWI_Logo.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Inter } from "next/font/google";
-import { DarkMode } from "@mui/icons-material";
-import { useTheme} from "../context/Theme";
+import { DarkMode, LightMode } from "@mui/icons-material";
+import { useTheme } from "../context/Theme";
 const inter = Inter({
   display: "block",
   style: "normal",
@@ -16,6 +16,8 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [libraryStatus, setLibraryStatus] = useState("");
   const { theme, toggleTheme } = useTheme();
+  const dropdownRef = useRef<HTMLUListElement>(null);
+
   useEffect(() => {
     const checkLibraryStatus = () => {
       const now = new Date();
@@ -45,8 +47,21 @@ export default function Navbar() {
     return () => clearInterval(interval);
   }, []); // Run once on component mount
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
+
   return (
-    <div className={`${theme==="dark"?"dark":"light"}`}>
+    <div className={`${theme === "dark" ? "dark" : "light"}`}>
       <nav className="dark:bg-black">
         <ul className={`flex items-center justify-between w-full ${inter.className} dark:text-white`}>
           <div className="flex items-center">
@@ -72,38 +87,39 @@ export default function Navbar() {
               >
                 Important Information
               </button>
-              {dropdownOpen && (
-                <ul className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg">
-                  <li className="px-4 py-2 hover:bg-gray-100">
-                    <Link href="/info1">Notices</Link>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-gray-100">
-                    <Link href="/info2">Featured Faculty Publications</Link>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-gray-100">
-                    <Link href="/info3">Useful Resources</Link>
-                  </li>
-                </ul>
-              )}
+              <ul
+                ref={dropdownRef}
+                className={`absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg dark:bg-black transition-all duration-300 ease-in-out transform ${
+                  dropdownOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+                }`}
+              >
+                <li className="px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-slate-600">
+                  <Link href="/info1">Notices</Link>
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-slate-600">
+                  <Link href="/info2">Featured Faculty Publications</Link>
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-slate-600">
+                  <Link href="/info3">Useful Resources</Link>
+                </li>
+              </ul>
             </li>
             <li className="mx-3">
               <input
-                type="text" 
+                type="text"
                 placeholder="Search..."
                 className="px-4 py-2 border border-gray-300 rounded"
               />
             </li>
           </div>
           <div className="flex items-center">
-            <li className="mx-3">
-              <button onClick={toggleTheme}>
-                <DarkMode />
+            <li className="mx-3 text-sm text-gray-600 flex items-center">
+              <button onClick={toggleTheme} className="mr-2 dark:text-white">
+                {theme === "dark" ? <LightMode /> : <DarkMode />}
               </button>
+              {libraryStatus}
             </li>
-            </div>
-          <li className="mx-3 text-sm text-gray-600">
-            {libraryStatus}
-          </li>
+          </div>
         </ul>
       </nav>
     </div>
