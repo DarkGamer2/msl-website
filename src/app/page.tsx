@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
+import Link from 'next/link';
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import LiveChat from "./chat/LiveChat";
@@ -12,7 +13,7 @@ import Christine from "./images/christine.jpg";
 import Percy from "./images/Percy.jpg";
 import Theodore from "./images/theodore.jpg";
 import Book from "./components/Book";
-import { useParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { StaticImageData } from 'next/image';
 
 // Fonts setup
@@ -33,6 +34,8 @@ interface Book {
   image: StaticImageData;
   title: string;
   description?: string;
+  author?: string;
+  yearPublished?: number;
   id?: number;
 }
 
@@ -42,34 +45,42 @@ export default function Home() {
       image: Christine,
       title: "Christine",
       description: "A horror novel by Stephen King",
+      author:"Stephen King",
+      yearPublished: 1983,
       id: 1,
     },
     {
       image: Percy,
       title: "Percy Jackson: The Battle Of The Labyrinth",
       description: "A fantasy novel by Rick Riordan",
+      author:"Rick Riordan",
       id: 2,
+      yearPublished: 2008,
     },
     {
       image: Theodore,
       title: "Theodore Boone: The Scandal",
       description: "A legal thriller novel by John Grisham",
+      author:"John Grisham",
+      yearPublished: 2016,
       id: 3,
     },
   ];
 
   const { theme } = useTheme();
-  const params = useParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const book = searchParams.get('book');
   const [selectedBook, setSelectedBook] = useState<Book | undefined>(undefined);
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
-    if (params.book) {
-      const bookId = Number(params.book);
-      const book = bookList.find(book => book.id === bookId);
-      setSelectedBook(book);
+    if (book) {
+      const bookId = Number(book);
+      const foundBook = bookList.find(book => book.id === bookId);
+      setSelectedBook(foundBook);
     }
-  }, [params.book]);
+  }, [book]);
 
   return (
     <div className={`min-h-screen ${theme === "dark" ? "dark" : ""}`}>
@@ -102,7 +113,7 @@ export default function Home() {
                   <Book
                     title={book.title}
                     image={book.image}
-                    description={book.description}
+                    description={book.description} id={book.id}
                   />
                 </div>
               ))
@@ -114,27 +125,27 @@ export default function Home() {
 
       {/* Live Chat Toggle Button */}
       {!isChatOpen && (
-  <motion.div
-    className="fixed top-1/2 right-4 z-50 cursor-pointer bg-blue-500 text-white p-4 rounded-l-lg flex items-center transform -translate-y-1/2 shadow-lg hover:animate-bounce"
-    onClick={() => setIsChatOpen(true)}
-    initial={{ x: '100%' }}
-    animate={{ x: '0%' }}
-    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-  >
-    <FaArrowLeft className="mr-2" />
-    Live Chat
-  </motion.div>
-)}
+        <motion.div
+          className="fixed top-1/2 right-4 z-50 cursor-pointer bg-blue-500 text-white p-4 rounded-l-lg flex items-center transform -translate-y-1/2 shadow-lg hover:animate-bounce"
+          onClick={() => setIsChatOpen(true)}
+          initial={{ x: '100%' }}
+          animate={{ x: '0%' }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        >
+          <FaArrowLeft className="mr-2" />
+          Live Chat
+        </motion.div>
+      )}
 
-{/* Live Chat Component */}
-<motion.div
-  className="fixed top-1/4 right-0 w-80 h-3/4 bg-white dark:bg-gray-800 shadow-2xl rounded-lg z-40 overflow-hidden"
-  initial={{ x: '100%' }}
-  animate={{ x: isChatOpen ? '0%' : '100%' }}
-  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
->
-  <LiveChat closeChat={() => setIsChatOpen(false)} />
-</motion.div>
+      {/* Live Chat Component */}
+      <motion.div
+        className="fixed top-1/4 right-0 w-80 h-3/4 bg-white dark:bg-gray-800 shadow-2xl rounded-lg z-40 overflow-hidden"
+        initial={{ x: '100%' }}
+        animate={{ x: isChatOpen ? '0%' : '100%' }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      >
+        <LiveChat closeChat={() => setIsChatOpen(false)} />
+      </motion.div>
     </div>
   );
 }

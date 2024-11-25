@@ -52,15 +52,14 @@ export default function Book(props: BookProps) {
               Borrow
             </motion.button>
           </div>
-          <div className="text-center mt-2 text-white">
-            <Link href={`/books/${props.id}`}>
+          <div className="text-center mt-2">
+            <Link href={`/book/${props.id}`}>
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 onHoverStart={() => console.log("hover started!")}
-                className={`${lobster.className} bg-blue-500 py-1 px-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}
+                className={`${lobster.className} bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}
               >
-                {" "}
                 Details
               </motion.button>
             </Link>
