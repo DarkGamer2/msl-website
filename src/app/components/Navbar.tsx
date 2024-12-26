@@ -94,10 +94,10 @@ export default function Navbar() {
                 }`}
               >
                 <li className="px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-slate-600">
-                  <Link href="/info1">Notices</Link>
+                  <Link href="/notices">Notices</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-slate-600">
-                  <Link href="/info2">Featured Faculty Publications</Link>
+                  <Link href="/publications">Featured Faculty Publications</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-slate-600">
                   <Link href="/info3">Useful Resources</Link>

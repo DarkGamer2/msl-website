@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import { Bebas_Neue } from "next/font/google";
 import { useTheme } from "../context/Theme";
 import Footer from "../components/Footer";
+import { useState } from "react";
 
 const bebasNeue = Bebas_Neue({
   display: "block",
@@ -13,6 +14,19 @@ const bebasNeue = Bebas_Neue({
 
 export default function Page() {
   const { theme } = useTheme();
+  const [email, setEmail] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState(false);
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const emailValue = e.target.value;
+    setEmail(emailValue);
+    setIsEmailValid(validateEmail(emailValue));
+  };
 
   return (
     <div className={`${theme === "dark" ? "dark" : "light"} min-h-screen flex flex-col`}>
@@ -69,11 +83,15 @@ export default function Page() {
                   Email
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white dark:bg-black"
+                  className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white dark:bg-black ${
+                    isEmailValid ? "border-green-500" : "border-red-500"
+                  }`}
                   id="email"
                   type="email"
                   name="email"
                   placeholder="john@example.com"
+                  value={email}
+                  onChange={handleEmailChange}
                 />
               </div>
             </div>
