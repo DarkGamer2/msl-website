@@ -43,7 +43,8 @@ export default function Book(props: BookProps) {
             {props.description}
           </p>
           <div className="text-center mt-4">
-            <motion.button
+           <Link href={`/borrow`}>
+           <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onHoverStart={() => console.log("hover started!")}
@@ -51,6 +52,7 @@ export default function Book(props: BookProps) {
             >
               Borrow
             </motion.button>
+           </Link>
           </div>
           <div className="text-center mt-2">
             <Link href={`/book/${props.id}`}>
