@@ -15,6 +15,7 @@ import Theodore from "./images/theodore.jpg";
 import Book from "./components/Book";
 import { useRouter, useSearchParams } from "next/navigation";
 import { StaticImageData } from 'next/image';
+import Carousel from './components/Carousel';
 
 // Fonts setup
 const poppins = Poppins({
@@ -120,6 +121,15 @@ export default function Home() {
             )}
           </div>
         </section>
+      <section>
+          <h1 className={`text-center ${bebasNeue.className} text-2xl dark:text-white mb-4 mt-8`}>New Arrivals Carousel</h1>
+       <div>
+           <Carousel/>
+       </div>
+      </section>
+      
+      </div>
+      <div>
       </div>
       <Footer />
 

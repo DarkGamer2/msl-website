@@ -24,7 +24,7 @@ export default function Footer() {
       <div className="container mx-auto text-center">
         <div className="flex flex-col md:flex-row md:justify-between">
           <div>
-            <h1 className={`${bebasNeue.className} text-xl dark:text-white`}>Quick Links</h1>
+            <h1 className={`${bebasNeue.className} text-2xl dark:text-white`}>Quick Links</h1>
 
             <span className={`block ${inter.className} dark:text-white`}>
               <Link href="https://uwin-primo.hosted.exlibrisgroup.com/primo-explore/search?vid=STA&lang=en_US&fromRedirectFilter=true" />
@@ -43,7 +43,7 @@ export default function Footer() {
             </span>
           </div>
           <div>
-            <h1 className={`${bebasNeue.className} dark:text-white text-xl`}>Research Help</h1>
+            <h1 className={`${bebasNeue.className} dark:text-white text-2xl`}>Research Help</h1>
 
             <span className={`block ${inter.className} dark:text-white`}>
               <Link href="https://libguides.uwi.edu">Research Guide</Link>
@@ -70,7 +70,7 @@ export default function Footer() {
             </span>
           </div>
           <div>
-            <h1 className={`${bebasNeue.className} dark:text-white text-xl`}>Services</h1>
+            <h1 className={`${bebasNeue.className} dark:text-white text-2xl`}>Services</h1>
 
             <span className="block dark:text-white">Link</span>
             <span className="block dark:text-white">Link</span>
@@ -78,7 +78,7 @@ export default function Footer() {
             <span className="block dark:text-white">Link</span>
           </div>
           <div>
-            <h1 className={`${bebasNeue.className} dark:text-white text-xl`}>Social Media</h1>
+            <h1 className={`${bebasNeue.className} dark:text-white text-2xl`}>Social Media</h1>
 
             <span className="block dark:text-white">Email</span>
             <span className="block dark:text-white">Phone</span>

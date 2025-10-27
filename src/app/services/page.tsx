@@ -97,7 +97,8 @@ export default function Page() {
             Requests from external users
             $5.00 per print for 8 1/2' x 11 or 8 1/2' x 14' paper"
           />
-          <div className="absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-b from-zinc-950/20 to-zinc-950/0"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-b from-zinc-950/20 to-zinc-950/0">
+          </div>
         </div>
       </div>
       <Footer />
